@@ -20,9 +20,9 @@ to deploy. Final bundle does not include nodemon or TypeScript.
     - `SOMEPWD=SMITH`
 3. Confirm entries in `config/default.json` and `config/production.json`
     - API Prefix path (default to `/api/`)
-    - Serve Static Content (any non-empty string maps to root of project. Use absolute or relative paths. Defaults to `./public`)
+    - Serve Static Content (any non-empty string maps to root of project. Use absolute or relative paths. Defaults to `./public/`)
     - API Port (defaults to 8080)
-4. Create services in new folder (ex. `/shoes`). Can mimic pattern within `/common/healthCheck.ts`.
+4. Create services in new folder (ex. `/app/shoes`). Can mimic pattern within `/common/healthCheck.ts`.
 5. Create route handler inside `/routes/router.ts` to map to new service above.
 6. If services rely on an external database connection, be sure to wrap the `rs.start()` method call of `index.ts` inside the callback from that connections startup asynchronous method e.g. don't start the server until the database connection pool has been started up and any necessary seeding processes completed.
     - e.g. `database.connection.open((err) => if (!err) rs.start() )` <- where the parameter to the open method is an asynchronous callback called only after the connection is established.
@@ -38,7 +38,7 @@ Test any new services using your favorite REST tool like Rested, Postman, any mo
 Run any unit tests at any time in a new console using `npm test`.
 
 You can place any static content into (default `./public/`) folder and those assets will be served statically over the API Port. The path used is mapped inside `/config/default.json`. Setting the variable `serveStaticPath` to an empty string or removing it from the configuration file results in no static content being served.
-- The endpoint from the client maps to the root of the webserver e.g. `serveStaticPath="./public"` will map any request to `localhost:8080/somefile.txt` to `process.cwd()/public/somefile.txt`
+- The endpoint from the client maps to the root of the webserver e.g. `serveStaticPath="./public/"` will map any request to `localhost:8080/somefile.txt` to `process.cwd()/public/somefile.txt`
 - Another example request `localhost:8080/shoes/vendors.json` would map to `process.cwd()/public/shoes/vendor.json`
 
 
