@@ -3,8 +3,8 @@ import * as restify from 'restify'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { HealthCheckRoute } from './healthCheckRoute'
-import { ErrorHandler } from '../common/errorHandler'
+import { HealthCheckRoute, HelloWorldRoute } from './'
+import { ErrorHandler } from '../common'
 
 export class Router {
 
@@ -16,6 +16,11 @@ export class Router {
         // api/health
         const healthCheckRoute = new HealthCheckRoute(this.server, this.errorHandler)
         healthCheckRoute.init(baseUri + 'health')
+
+        // Hello World Endpoint
+        // api/hello
+        const helloWorldRoute = new HelloWorldRoute(this.server, this.errorHandler)
+        helloWorldRoute.init(baseUri + 'hello')
 
         /*
             Place all handler routes above this section

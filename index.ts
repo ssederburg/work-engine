@@ -1,9 +1,7 @@
 import * as config from 'config'
 
-import { Utilities } from './common/utilities'
-import { RouteServer } from './common/server'
+import { Utilities, RouteServer, ErrorHandler } from './common'
 import { Router } from './routes/router'
-import { ErrorHandler } from './common/errorHandler'
 
 if (!Utilities.preconditionCheck()) {
     console.error('One or more preconditions for startup were not met. Check log for details. Process terminated')

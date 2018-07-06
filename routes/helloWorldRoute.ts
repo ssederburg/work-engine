@@ -1,6 +1,7 @@
-import { HealthCheckService, ErrorHandler } from '../common'
+import { ErrorHandler } from '../common/'
+import { HelloWorldService } from '../app/';
 
-export class HealthCheckRoute {
+export class HelloWorldRoute {
     
     public constructor (private server: any, private errorHandler: ErrorHandler) {}
 
@@ -12,14 +13,14 @@ export class HealthCheckRoute {
                 res.contentType = 'application/json'
                 res.header('Content-Type', 'application/json')
             
-                const result = await HealthCheckService.get()
+                const result = await HelloWorldService.get()
                 res.send(200, result)
             
                 return next();        
             }
             catch (err) {
                 console.error(err)
-                res.send(500, this.errorHandler.errorMessage('HealthCheckRoute:Error'))
+                res.send(500, this.errorHandler.errorMessage('HelloWorldRoute:Error'))
                 return next()
             }
 
