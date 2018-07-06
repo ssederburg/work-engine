@@ -18,4 +18,4 @@ const errorHandler = new ErrorHandler(server)
 const router = new Router(server, errorHandler)
 router.init(config.apiPrefix)
 
-rs.start();
+rs.start()
