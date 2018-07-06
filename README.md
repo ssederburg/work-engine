@@ -25,10 +25,12 @@ to deploy. Final bundle does not include nodemon or TypeScript.
 4. Create services in new folder (ex. `/shoes`). Can mimic pattern within `/common/healthCheck.ts`.
 5. Create route handler inside `/routes/router.ts` to map to new service above.
 6. If services rely on an external database connection, be sure to wrap the `rs.start()` method call of `index.ts` inside the callback from that connections startup asynchronous method e.g. don't start the server until the database connection pool has been started up and any necessary seeding processes completed.
-    - e.g. `databace.connection.open((err) => if (!err) rs.start() )` <- where the parameter to the open method is an asynchronous callback called only after the connection is established.
+    - e.g. `database.connection.open((err) => if (!err) rs.start() )` <- where the parameter to the open method is an asynchronous callback called only after the connection is established.
 7. Create Unit Tests in `./test/` folder for each new service method created.
 
 ## notes
+
+### development
 Running `npm start` uses hot reload meaning any changes to `*.ts` files (or others) causes `nodemon` to automatically restart the server with the changes.
 
 Test any new services using your favorite REST tool like Rested, Postman, any modern browser etc.
