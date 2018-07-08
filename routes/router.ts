@@ -3,7 +3,7 @@ import * as restify from 'restify'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { HealthCheckRoute, HelloWorldRoute } from './'
+import { HealthCheckRoute, HelloWorldRoute, SwaggerRoute } from './'
 import { ErrorHandler } from '../common'
 
 export class Router {
@@ -27,10 +27,17 @@ export class Router {
             This section is responsible for serving static content AFTER all other routes are handled
             Lastly, there is a handler to gracefully handle 'Resource Not Found' 404 status
         */
+        if (config.serveSwagger) {
+            console.log('Serving swagger content')
+            const swaggerRoute = new SwaggerRoute(this.server, this.errorHandler)
+            swaggerRoute.init('/swagger.io')
+        }
+
         // Check if should serve static
         if (config.serveStaticPath) {
             const sharePath = config.serveStaticPath //e.g. ./public/
             const checkPath = sharePath.startsWith('./') ? path.join(process.cwd(), sharePath) : sharePath
+            // Sync version ok here since this executes on start up only
             if (!fs.existsSync(checkPath)) {
                 console.error(`Invalid serveStaticPath in config file, directory does not exist: ${checkPath}`)
             } else {
